@@ -1,24 +1,19 @@
 package algorithm01;
 
+import java.util.Arrays;
+
 // https://www.codewars.com/kata/517abf86da9663f1d2000003/java
 public class Main {
 
 	public static void main(String[] args) {
-		String s = "the_Stealth_Warrior";
+		String s = "the-stealth-warrior";
 		System.out.println(toCamelCase(s));
-
 	}
-
+	
 	static String toCamelCase(String s){
 		String[] strs = s.split("[-_]");
-		StringBuilder sb = new StringBuilder();
-		
-		sb.append(strs[0]);
-		
-		for(int i =1; i < strs.length; i++) {
-			sb.append(Character.toUpperCase(strs[i].charAt(0)) + strs[i].substring(1));
-		}
-	    return sb.toString();
+		return Arrays.stream(strs)
+				.reduce((s1,s2) -> s1 + s2.substring(0, 1).toUpperCase() + s2.substring(1, s2.length())).get();
 	}
 	
 }
