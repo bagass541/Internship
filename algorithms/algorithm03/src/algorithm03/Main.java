@@ -1,7 +1,6 @@
 package algorithm03;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.Arrays;
 
 public class Main {
 
@@ -9,17 +8,13 @@ public class Main {
 		System.out.println(isNarcissistic(153));
 
 	}
-
+	
 	public static boolean isNarcissistic(int number) {
-		int n = number;
-		List<Integer> digits = new ArrayList<Integer>();
-		while(n != 0) {
-			digits.add(n % 10);
-			n /= 10;
-		}
-		int length = digits.size();
-		int sum = digits.stream().mapToInt(d -> (int) Math.pow(d, length)).sum();
-
-        return sum == number;
+		String[] digits = String.valueOf(number).split("");
+		int length = digits.length;
+		return number == Arrays.stream(digits)
+				.mapToInt(Integer::parseInt)
+				.mapToDouble(d -> Math.pow(d, length))
+				.sum();	
     }
 }
