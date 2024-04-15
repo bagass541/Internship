@@ -1,19 +1,19 @@
 package cache.cache;
 
+import lombok.AllArgsConstructor;
+import lombok.Data;
+
+
+@AllArgsConstructor
+@Data
 public class Node<K, V> implements Comparable<Node<K, V>> {
 
-	K key;
+	private K key;
 	
-	V value;
+	private V value;
 	
-	int frequency;
-
-	public Node(K key, V value, int frequency) {
-		this.key = key;
-		this.value = value;
-		this.frequency = frequency;
-	}
-
+	private int frequency;
+	
 	@Override
 	public int compareTo(Node<K, V> o) {
 		return o.frequency - this.frequency;

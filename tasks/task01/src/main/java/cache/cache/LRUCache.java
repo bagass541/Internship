@@ -10,7 +10,7 @@ public class LRUCache<K, V> implements Cache<K, V> {
 	
 	@SuppressWarnings("serial")
 	public LRUCache(int capacity) {
-		linkedHashMap = new LinkedHashMap<K, V>(capacity, .75f, true) {
+		linkedHashMap = new LinkedHashMap<K, V>(capacity, 0.75f, true) {
 			@Override
 			protected boolean removeEldestEntry(Map.Entry<K, V> eldest) {
 				return size() > capacity;

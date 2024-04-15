@@ -25,12 +25,10 @@ public class LFUCache<K,V> implements Cache<K, V> {
 	public Optional<V> get(K key) {
 		Node<K, V> node = keyToNodes.get(key);
 		if(node != null) {
-			node.frequency++;
+			node.setFrequency(node.getFrequency() + 1);
 			Collections.sort(nodes);
-			return Optional.ofNullable(node.value);
-		} else {
-			return Optional.empty();
 		}
+		return Optional.ofNullable(node == null ? null : node.getValue());
 	}
 
 	@Override
@@ -54,8 +52,8 @@ public class LFUCache<K,V> implements Cache<K, V> {
 			putIfAbsent(key, value);
 		} else {
 			Node<K, V> node = keyToNodes.get(key);
-			node.value = value;
-			node.frequency++;
+			node.setValue(value);
+			node.setFrequency(node.getFrequency() + 1);
 		}
 	}
 
@@ -64,15 +62,12 @@ public class LFUCache<K,V> implements Cache<K, V> {
 		if(nodes.size() == capacity) {
 			Node<K, V> valueToRemove = nodes.get(nodes.size() - 1);
 			nodes.remove(valueToRemove);
-			keyToNodes.remove(valueToRemove.key); 
+			keyToNodes.remove(valueToRemove.getKey()); 
 		}
 		
 		Node<K, V> newNode = new Node<K, V>(key, value, 1);
 		nodes.add(newNode);
 		keyToNodes.put(key, newNode);
-		
-		Collections.sort(nodes);
-		
 	}
 
 	@Override
@@ -86,12 +81,11 @@ public class LFUCache<K,V> implements Cache<K, V> {
 				break;
 			}
 		}
-		
 	}
 
 	@Override
 	public boolean contains(V value) {
-		return nodes.stream().anyMatch(n -> n.value == value);
+		return nodes.stream().anyMatch(n -> n.getValue() == value);
 	}
 }
 
