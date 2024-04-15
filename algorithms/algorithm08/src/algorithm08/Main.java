@@ -1,5 +1,8 @@
 package algorithm08;
 
+import java.util.HashMap;
+import java.util.Map;
+
 public class Main {
 
 	public static void main(String[] args) {
@@ -13,18 +16,16 @@ public class Main {
 	public static boolean isValid(char[] walk) {
 	    if(walk.length != 10) return false;
 	    
-	    int x = 0;
-	    int y = 0;
-	    
+	    Map<Character, Integer> map = new HashMap<Character, Integer>();
 	    for(char c : walk) {
-	    	switch(c) {
-		    	case 'n' -> y++;
-		    	case 's' -> y--;
-		    	case 'e' -> x++;
-		    	case 'w' -> x--;
- 	    	}
+	    	if(map.containsKey(c)) {
+	    	  	map.put(c, map.get(c) + 1);
+	    	} else {
+	    		map.put(c, 1);
+	    	}
 	    }
 	    
-	    return x == 0 && y == 0;
+	    return map.getOrDefault('n', 0).equals(map.getOrDefault('s', 0)) && 
+	    		map.getOrDefault('e', 0).equals(map.getOrDefault('w', 0));
 	}
 }
