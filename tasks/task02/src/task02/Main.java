@@ -29,12 +29,6 @@ public class Main {
 		
 		map.entrySet().forEach(i -> System.out.print(i + " "));
 		
-		System.out.println();
-		for (int j = 15; j < 26; j++) {
-			map.put(j, j);
-			System.out.println("Threshold: " + map.thresHold + " j: " + j);
-		}
-		
 		System.out.println(map.size());
 		
 		System.out.println("Get 5: " + map.get(5));
