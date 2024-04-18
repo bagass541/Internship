@@ -24,9 +24,7 @@ public class CustomMap<K, V> implements Map<K, V>{
 	
 	private final float loadFactor;
 	
-	// По факту тут должно храниться значение, 
-	// при достижении которого удваивается размер массив
-	// capacity * load factor
+	// Следующее значение размера таблицы
 	private int thresHold;
 	
 	private int size;
@@ -130,10 +128,10 @@ public class CustomMap<K, V> implements Map<K, V>{
 
 	@Override
 	public V put(K key, V value) {
-		return putVal(hash(key), key, value, false, true);
+		return putVal(hash(key), key, value);
 	}
 	
-	private V putVal(int hash, K key, V value, boolean onlyIfAbsent, boolean evict) {
+	private V putVal(int hash, K key, V value) {
 		int n;
 		int i;
 		CustomEntry<K, V> p;
@@ -176,6 +174,7 @@ public class CustomMap<K, V> implements Map<K, V>{
 		return p.value;
 	}
 	
+	
 	@SuppressWarnings("unchecked")
 	private CustomEntry<K, V>[] resize() {
 		CustomEntry<K, V>[] oldTab = table;
@@ -186,7 +185,6 @@ public class CustomMap<K, V> implements Map<K, V>{
 		
 		if(oldCap > 0) {
 			if(oldCap >= MAXIMUM_CAPACITY) {
-				thresHold = Integer.MAX_VALUE;
 				return oldTab;
 			} else if ((newCap = oldCap << 1) < MAXIMUM_CAPACITY && 
 					oldCap >= DEFAULT_INITIAL_CAPACITY) {
@@ -261,7 +259,7 @@ public class CustomMap<K, V> implements Map<K, V>{
 		
 		for (Entry<? extends K, ? extends V> entry : m.entrySet()) {
 			K key = entry.getKey();
-			putVal(hash(key), key, entry.getValue(), false, true);
+			putVal(hash(key), key, entry.getValue());
 		}
 		
 	}

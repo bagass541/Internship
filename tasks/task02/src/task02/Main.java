@@ -3,6 +3,7 @@ package task02;
 public class Main {
 
 	public static void main(String[] args) {
+
 		CustomMap<Integer, Integer> map = new CustomMap<Integer, Integer>();
 		
 		System.out.println("Put: " + map.put(5, 5));
