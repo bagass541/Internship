@@ -40,7 +40,6 @@ public class CustomMap<K, V> implements Map<K, V>{
 		this.loadFactor = loadFactor;
 		entrySet = new HashSet<Map.Entry<K,V>>();
 		this.thresHold = tableSizeFor(initialCapacity);
-		System.out.println("this.threshold: " + this.thresHold);
 	}
 	
 	public CustomMap(int initialCap) {
@@ -128,11 +127,9 @@ public class CustomMap<K, V> implements Map<K, V>{
 	}
 	
 	private V putVal(int hash, K key, V value) {
-	
 		int i;
 		CustomEntry<K, V> p;
 	
-		System.out.println("threshold: " + thresHold);
 		if(table == null) {
 			table = resize();
 		}
