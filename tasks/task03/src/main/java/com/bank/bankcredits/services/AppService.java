@@ -1,7 +1,6 @@
 package com.bank.bankcredits.services;
 
 import java.io.IOException;
-import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -12,7 +11,6 @@ import com.bank.bankcredits.entities.Result;
 import com.bank.bankcredits.entities.Settings;
 import com.bank.bankcredits.entities.Transaction;
 import com.bank.bankcredits.entities.User;
-import com.bank.bankcredits.entities.enums.CurrencyType;
 import com.bank.bankcredits.entities.enums.StatusType;
 import com.bank.bankcredits.exceptions.UserNotFoundException;
 import com.bank.bankcredits.gson.DBReader;
@@ -58,30 +56,19 @@ public class AppService {
 		for(Credit credit : credits) {;
 			Discount discount = creditService.getDiscountByDate(credit.getDate());
 			credit.applyDiscount(discount);
-			
-			List<Transaction> transactions = transactionService.getByCreditIdDateTo(credit.getId(), settings.getDateFrom(), settings.getDateTo());
-			credit.applyTransactions(getTotalBr(transactions, settings));
-			
+
+			List<Transaction> transactions = transactionService.getByCreditIdDateTo(credit.getId(),
+					settings.getDateFrom(), settings.getDateTo());
+			transactions.sort(null);
+
+			credit.processTransactions(transactions, settings.getStartCostUSD(), settings.getStartCostEUR(),
+					settings.getDateTo());
 			String fullName = user.getName() + " " + user.getSecondName();
-			results.add(new Result(credit.getId(), userId, fullName, transactions.size(),
-					credit.getMoney(), credit.getPeriod(), StatusType.IN_PROGRESS, null));
+			results.add(new Result(credit.getId(), userId, fullName, transactions.size(), credit.getMoney(),
+					credit.getPeriod(), StatusType.IN_PROGRESS, null));
 		}
+
 		
 		return results;
-	}
-	
-	private BigDecimal getTotalBr(List<Transaction> transactions, Settings settings) {
-		BigDecimal sum = BigDecimal.ZERO;
-		for(Transaction transaction : transactions) {
-			if(transaction.getCurrency() == CurrencyType.EUR) {
-				sum = sum.add(transaction.getMoney().multiply(settings.getStartCostEUR()));
-			} else if(transaction.getCurrency() == CurrencyType.USD) {
-				sum = sum.add(transaction.getMoney().multiply(settings.getStartCostUSD()));
-			} else {
-				sum = sum.add(transaction.getMoney());
-			}
-		}
-		
-		return sum;
 	}
 }

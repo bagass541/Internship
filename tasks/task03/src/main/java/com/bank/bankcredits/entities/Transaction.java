@@ -8,7 +8,7 @@ import com.bank.bankcredits.entities.enums.CurrencyType;
 import lombok.Data;
 
 @Data
-public class Transaction {
+public class Transaction implements Comparable<Transaction> {
 	private long id;
 	
 	private LocalDate date;
@@ -20,4 +20,9 @@ public class Transaction {
 	private CurrencyType currency;
 	
 	private BigDecimal money;
+
+	@Override
+	public int compareTo(Transaction o) {
+		return this.date.isAfter(o.getDate()) ? 1 : 0;
+	}
 }

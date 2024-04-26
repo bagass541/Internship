@@ -16,7 +16,7 @@ public class TableGenerator {
 	
 	public StringBuilder addTransactions(List<Result> results, StringBuilder table) {
 		for(Result res : results) {
-			table.append(String.format(" %10s | %15s | %26s | %21s | %12s | %14s | %12s | %s \n", res.getCreditId(), res.getUserId(), res.getFullName(),
+			table.append(String.format(" %10s | %15s | %26s | %21s | %12.3f | %14s | %12s | %s \n", res.getCreditId(), res.getUserId(), res.getFullName(),
 					res.getCountTransactions(), res.getDebt(), res.getPeriodType(), res.getStatusType(), res.getDateRepayment()));
 		}
 		
