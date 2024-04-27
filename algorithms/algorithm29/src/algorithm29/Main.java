@@ -13,21 +13,6 @@ public class Main {
 		System.out.println(orderWeight("2000 10003 1234000 44444444 9999 11 11 22 123"));
 		System.out.println(orderWeight(""));
 	}
-
-//	public static String orderWeight(String strng) {
-//		Map<Integer, Integer> map = new TreeMap<>();
-//		String[] strs = strng.split("\\s+");
-//
-//		if (strs.length == 0)
-//			return "";
-//
-//		for (String string : strs) {
-//			Integer i = Integer.parseInt(string);
-//			map.put(i, sumDigits(i));
-//		}
-//
-//		return map.entrySet().stream().sorted(Map.Entry.comparingByValue()).map(i -> String.valueOf(i.getKey())).reduce((s1, s2) -> s1 + " " + s2).get();
-//	}
 	
 	public static String orderWeight(String strng) {
 		
