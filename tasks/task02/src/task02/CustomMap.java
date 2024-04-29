@@ -1,10 +1,10 @@
 package task02;
 
-import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 public class CustomMap<K, V> implements Map<K, V>{
 	
@@ -15,10 +15,6 @@ public class CustomMap<K, V> implements Map<K, V>{
 	private static final int DEFAULT_INITIAL_CAPACITY  = 1 << 4;
 
 	private CustomEntry<K, V>[] table;
-	
-	private Set<K> keySet;
-	
-	private Collection<V> values;
 	
 	private Set<Entry<K, V>> entrySet;
 	
@@ -42,8 +38,6 @@ public class CustomMap<K, V> implements Map<K, V>{
 		}
 		
 		this.loadFactor = loadFactor;
-		keySet = new HashSet<K>();
-		values = new ArrayList<V>();
 		entrySet = new HashSet<Map.Entry<K,V>>();
 		this.thresHold = tableSizeFor(initialCapacity);
 	}
@@ -53,14 +47,15 @@ public class CustomMap<K, V> implements Map<K, V>{
 	}
 
 	public CustomMap() {
-		this.loadFactor = DEFAULT_LOAD_FACTOR;
-		keySet = new HashSet<K>();
-		values = new ArrayList<V>();
-		entrySet = new HashSet<Map.Entry<K,V>>();
+		this(DEFAULT_INITIAL_CAPACITY, DEFAULT_LOAD_FACTOR);
 	}
 
 	private int tableSizeFor(int initialCapacity) {
 		int n = 1;
+		if(initialCapacity < DEFAULT_INITIAL_CAPACITY) {
+			return DEFAULT_INITIAL_CAPACITY;
+		}
+		
 		while(n < initialCapacity) {
 			n <<= 1;
 		}
@@ -84,12 +79,12 @@ public class CustomMap<K, V> implements Map<K, V>{
 
 	@Override
 	public boolean containsKey(Object key) {
-		return keySet.contains(key);
+		return entrySet.stream().anyMatch(entry -> entry.getKey().equals(key));
 	}
 
 	@Override
 	public boolean containsValue(Object value) {
-		return values.contains(value);
+		return entrySet.stream().anyMatch(entry -> entry.getValue().equals(value));
 	} 
 
 	@Override
@@ -103,7 +98,7 @@ public class CustomMap<K, V> implements Map<K, V>{
 		CustomEntry<K, V> e;
 		int n;
 		K k;
-		
+	//	System.out.println("threshold: " + thresHold);
 		// (n - 1) & hash эквивалент hash % n, это позволяет обойтись без деления для оптимизации, то есть 
 		// если hash = 34, а n = 16, то выведет 2. 
 		// Также это нужно, чтобы не создавать слишком большой массив и этим действием узнавать индекс элемента
@@ -132,14 +127,13 @@ public class CustomMap<K, V> implements Map<K, V>{
 	}
 	
 	private V putVal(int hash, K key, V value) {
-		int n;
 		int i;
 		CustomEntry<K, V> p;
-		
-		if(table == null || (n = table.length) == 0) {
-			n = (table = resize()).length;
+	
+		if(table == null) {
+			table = resize();
 		}
-		
+		int n = table.length;
 		if(size >= table.length * loadFactor) {
 			table = resize();
 		}
@@ -167,9 +161,7 @@ public class CustomMap<K, V> implements Map<K, V>{
 				size++;
 			}
 		}
-		
-		keySet.add(key);
-		values.add(value);
+
 		entrySet.add(p);
 		return p.value;
 	}
@@ -197,6 +189,9 @@ public class CustomMap<K, V> implements Map<K, V>{
 			newThr = tableSizeFor(DEFAULT_INITIAL_CAPACITY);
 		}
 		
+		if(newThr == 0) {
+			newThr = newCap << 1;
+		}
 		thresHold = newThr;
 		
 		CustomEntry<K, V>[] newTab = (CustomEntry<K, V>[]) new CustomEntry[newCap];
@@ -235,8 +230,7 @@ public class CustomMap<K, V> implements Map<K, V>{
 				}
 			}
 		}
-		values.remove(entryToDelete.value);
-		keySet.remove(entryToDelete.key);
+
 		entrySet.remove(entryToDelete);
 		table[i] = null;
 		size--;
@@ -268,8 +262,7 @@ public class CustomMap<K, V> implements Map<K, V>{
 	@Override
 	public void clear() {
 		table = (CustomEntry<K, V>[]) new CustomEntry[DEFAULT_INITIAL_CAPACITY];
-		keySet.clear();
-		values.clear();
+
 		entrySet.clear();
 		size = 0;
 		
@@ -277,18 +270,16 @@ public class CustomMap<K, V> implements Map<K, V>{
 
 	@Override
 	public Set<K> keySet() {
-		return keySet;
+		return entrySet.stream().map(e -> e.getKey()).collect(Collectors.toSet());
 	}
 
 	@Override
 	public Collection<V> values() {
-		return values;
+		return entrySet.stream().map(e -> e.getValue()).collect(Collectors.toSet());
 	}
-
 
 	@Override
 	public Set<Map.Entry<K, V>> entrySet() {
 		return entrySet;
 	}
-
 }
