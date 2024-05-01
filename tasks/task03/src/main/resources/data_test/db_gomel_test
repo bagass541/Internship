@@ -1,0 +1,24 @@
+{
+	"data": {
+		"users": [
+			{"id": 1, "name": "Ivan", "secondName": "Smith", "sex": "MALE", "birthday": "1994-10-26"}
+		],
+		
+		"credits": [
+            {"id": 0, "userId": 1, "date": "2011-01-20", "period": "DAY", "money": 75000, "rate": 10.6},
+            {"id": 1, "userId": 1, "date": "2017-04-15", "period": "WEEK", "money": 42100, "rate": 10.6}
+        ],
+        
+        "discounts": [
+            {"id": 0, "type": "ONE", "date": "2007-04-12", "discount": 6.1}
+        ],
+        
+        "events": [
+
+        ],
+        
+        "transactions": [
+
+        ]
+	}
+}
