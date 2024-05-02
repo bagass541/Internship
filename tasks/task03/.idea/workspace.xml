@@ -5,63 +5,15 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="01555618-58f5-4a3c-a693-9821ab44a708" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/../../algorithms/algorithm33/algorithm33.iml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../../algorithms/algorithm34/algorithm34.iml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/encodings.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/uiDesigner.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/bagas/BankCreditsApplication.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/bagas/Executor.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/bagas/adapters/DiscountAdapter.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/bagas/adapters/LocalDateAdapter.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/bagas/entities/Credit.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/bagas/entities/Database.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/bagas/entities/Discount.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/bagas/entities/Event.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/bagas/entities/Result.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/bagas/entities/Settings.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/bagas/entities/ShowFor.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/bagas/entities/Transaction.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/bagas/entities/User.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/bagas/entities/enums/CurrencyType.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/bagas/entities/enums/DiscountType.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/bagas/entities/enums/PeriodType.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/bagas/entities/enums/SexType.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/bagas/entities/enums/ShowForType.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/bagas/entities/enums/StatusType.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/bagas/exceptions/IncorrectField.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/bagas/exceptions/UserNotFoundException.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/bagas/gson/DBReader.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/bagas/gson/GsonConfigurator.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/bagas/gson/GsonScanner.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/bagas/gson/SettingsReader.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/bagas/repositories/CreditRepository.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/bagas/repositories/CreditRepositoryImpl.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/bagas/repositories/DiscountRepository.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/bagas/repositories/DiscountRepositoryImpl.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/bagas/repositories/EventRepository.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/bagas/repositories/EventRepositoryImpl.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/bagas/repositories/TransactionRepository.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/bagas/repositories/TransactionRepositoryImpl.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/bagas/repositories/UserRepository.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/bagas/repositories/UserRepositoryImpl.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/bagas/services/AppService.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/bagas/services/CreditService.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/bagas/services/TransactionService.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/bagas/services/UserService.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/bagas/utils/JsonFileFilter.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/bagas/utils/TableGenerator.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/data/db.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/data/db_gomel.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/data/db_minsk.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/data/settings.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/data_test/db_gomel_test" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/data_test/db_mink_test" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/test/java/com/bagas/BankCreditsApplicationTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/bagas/BankCreditsApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/bagas/BankCreditsApplication.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/bagas/gson/DBReader.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/bagas/gson/DBReader.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/bagas/gson/SettingsReader.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/bagas/gson/SettingsReader.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/data/db.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/db.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/data/db_gomel.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/db_gomel.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/data/db_minsk.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/db_minsk.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/data/settings.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/settings.json" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -86,20 +38,21 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;Application.BankCreditsApplication.executor&quot;: &quot;Run&quot;,
-    &quot;Maven. [org.apache.maven.plugins:maven-archetype-plugin:RELEASE:generate].executor&quot;: &quot;Run&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;tasks&quot;,
-    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;C:/Users/user/Internship/tasks/task03/src/main/data&quot;,
-    &quot;project.structure.last.edited&quot;: &quot;Modules&quot;,
-    &quot;project.structure.proportion&quot;: &quot;0.0&quot;,
-    &quot;project.structure.side.proportion&quot;: &quot;0.0&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "Application.BankCreditsApplication.executor": "Run",
+    "Maven. [org.apache.maven.plugins:maven-archetype-plugin:RELEASE:generate].executor": "Run",
+    "Maven.task03 [clean,install].executor": "Run",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "git-widget-placeholder": "task03",
+    "kotlin-language-version-configured": "true",
+    "last_opened_file_path": "C:/Users/user/Internship/tasks/task03/src/main/data",
+    "project.structure.last.edited": "Modules",
+    "project.structure.proportion": "0.0",
+    "project.structure.side.proportion": "0.0"
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="C:\Users\user\Internship\tasks\task03\src\main\data" />
@@ -130,6 +83,17 @@
     </task>
     <servers />
   </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
       <breakpoints>
@@ -137,11 +101,6 @@
           <url>file://$PROJECT_DIR$/src/main/java/com/bagas/repositories/EventRepositoryImpl.java</url>
           <line>28</line>
           <option name="timeStamp" value="1" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/com/bagas/gson/SettingsReader.java</url>
-          <line>35</line>
-          <option name="timeStamp" value="2" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
