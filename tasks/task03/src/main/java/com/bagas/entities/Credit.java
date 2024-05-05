@@ -2,13 +2,15 @@ package com.bagas.entities;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
-import java.time.temporal.ChronoUnit;
 import java.util.List;
 
 import com.bagas.entities.enums.PeriodType;
+import com.bagas.utils.DateUtility;
 import com.google.gson.annotations.Expose;
 import lombok.AllArgsConstructor;
 import lombok.Data;
+
+import static com.bagas.utils.DateUtility.countPeriods;
 
 @Data
 @AllArgsConstructor
@@ -42,21 +44,14 @@ public class Credit {
             return;
         }
 
-        int times = 0;
-
-        switch (period) {
-            case DAY -> times = (int) ChronoUnit.DAYS.between(dateFrom, dateTo);
-            case WEEK -> times = (int) ChronoUnit.WEEKS.between(dateFrom, dateTo);
-            case MONTH -> times = (int) ChronoUnit.MONTHS.between(dateFrom, dateTo);
-            case YEAR -> times = (int) ChronoUnit.YEARS.between(dateFrom, dateTo);
-        }
+        int times = countPeriods(dateFrom, dateTo, period);
 
         for (int i = 0; i < times; i++) {
             money = money.add(money.abs().multiply(BigDecimal.valueOf(rate / 100)));
         }
     }
 
-    public void processTransactions(List<Transaction> transactions, BigDecimal costUSD, BigDecimal costEUR, LocalDate dateTo) {
+    public void processTransactions(List<Transaction> transactions, LocalDate dateTo) {
         LocalDate dateCredit = date;
 
         for (Transaction transaction : transactions) {

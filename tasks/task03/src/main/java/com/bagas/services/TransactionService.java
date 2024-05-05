@@ -20,7 +20,7 @@ public class TransactionService {
 		this.eventRepository = eventRepository;
 	}
 
-	public List<Transaction> getByCreditIdDateTo(long creditId, LocalDate dateFrom, LocalDate dateTo) throws IOException {
+	public List<Transaction> getByCreditIdDateTo(Long creditId, LocalDate dateFrom, LocalDate dateTo) throws IOException {
 		return transactionRepository.getByCreditIdDateTo(creditId, dateFrom, dateTo);
 	}
 	

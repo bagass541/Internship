@@ -10,5 +10,5 @@ public class ShowFor {
 
 	private ShowForType type;
 	
-	private List<Integer> users;
+	private List<String> users;
 }

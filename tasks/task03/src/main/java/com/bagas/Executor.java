@@ -27,8 +27,7 @@ public class Executor {
 			Settings settings = gsonScanner.startScan();
 			appService.printResults(settings);
 		} catch (IOException | IncorrectField | UserNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			System.out.println(e.getMessage());
 		}
 	}
 }

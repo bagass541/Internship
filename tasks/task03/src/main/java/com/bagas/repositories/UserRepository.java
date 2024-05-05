@@ -7,9 +7,9 @@ import java.util.Optional;
 
 public interface UserRepository {
 	
-	Optional<User> getById(long id) throws IOException;
+	Optional<User> getById(Long id) throws IOException;
 	
-	Optional<User> getByNameSecondName(String fullName) throws IOException;
+	Optional<User> getByFullName(String fullName) throws IOException;
 	
-	Optional<User> getByIdName(long id, String name) throws IOException;
+	Optional<User> getByIdName(Long id, String name) throws IOException;
 }

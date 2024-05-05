@@ -7,7 +7,7 @@ import com.bagas.entities.enums.CurrencyType;
 import lombok.Data;
 
 @Data
-public class Event implements Comparable<Event> {
+public class Event {
 
 	private long id;
 	
@@ -16,10 +16,4 @@ public class Event implements Comparable<Event> {
 	private BigDecimal cost;
 	
 	private LocalDate date;
-
-	@Override
-	public int compareTo(Event o) {
-		return date.compareTo(o.getDate());
-	}
-	
 }

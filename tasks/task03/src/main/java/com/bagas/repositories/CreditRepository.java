@@ -9,5 +9,5 @@ import java.util.List;
 
 public interface CreditRepository {
 	
-	List<Credit> getByUserIdPeriod(long userId, LocalDate dateFrom, LocalDate dateTo) throws IOException;
+	List<Credit> getByUserIdPeriod(Long userId, LocalDate dateFrom, LocalDate dateTo) throws IOException;
 }

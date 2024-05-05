@@ -8,5 +8,5 @@ import java.util.List;
 
 public interface TransactionRepository {
 
-	List<Transaction> getByCreditIdDateTo(long creditId, LocalDate dateFrom, LocalDate dateTo) throws IOException;
+	List<Transaction> getByCreditIdDateTo(Long creditId, LocalDate dateFrom, LocalDate dateTo) throws IOException;
 }

@@ -3,7 +3,6 @@ package com.bagas.adapters;
 import java.lang.reflect.Type;
 import java.time.LocalDate;
 
-
 import com.bagas.entities.Discount;
 import com.bagas.entities.enums.DiscountType;
 import com.google.gson.JsonElement;
@@ -13,22 +12,33 @@ import com.google.gson.JsonSerializer;
 
 public class DiscountAdapter implements JsonSerializer<Discount> {
 
+	private final String ID_PROPERTY = "id";
+
+	private final String TYPE_PROPERTY = "type";
+
+	private final String DATE_PROPERTY = "date";
+
+	private final String DATE_FROM_PROPERTY = "dateFrom";
+
+	private final String DATE_TO_PROPERTY = "dateTo";
+
+	private final String DISCOUNT_PROPERTY = "discount";
+
 	@Override
 	public JsonElement serialize(Discount src, Type typeOfSrc, JsonSerializationContext context) {
 		JsonObject jsonObject = new JsonObject();
-		jsonObject.addProperty("id", src.getId());
-		jsonObject.addProperty("type", src.getType().toString());
+		jsonObject.addProperty(ID_PROPERTY, src.getId());
+		jsonObject.addProperty(TYPE_PROPERTY, src.getType().toString());
 		
 		if(src.getType() == DiscountType.ONE) {
-			jsonObject.add("date", context.serialize(src.getDate(), LocalDate.class));
+			jsonObject.add(DATE_PROPERTY, context.serialize(src.getDate(), LocalDate.class));
 		} else {
-			jsonObject.add("dateFrom", context.serialize(src.getDateFrom(), LocalDate.class));
-			jsonObject.add("dateTo", context.serialize(src.getDateTo(), LocalDate.class));
+			jsonObject.add(DATE_FROM_PROPERTY, context.serialize(src.getDateFrom(), LocalDate.class));
+			jsonObject.add(DATE_TO_PROPERTY, context.serialize(src.getDateTo(), LocalDate.class));
 		}
 		
-		jsonObject.addProperty("discount", src.getDiscount());
+		jsonObject.addProperty(DISCOUNT_PROPERTY, src.getDiscount());
 		
 		return jsonObject;
 	}
-
 }

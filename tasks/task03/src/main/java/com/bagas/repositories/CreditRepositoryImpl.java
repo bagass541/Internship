@@ -1,37 +1,34 @@
 package com.bagas.repositories;
 
-import java.io.IOException;
-import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.List;
-
 import com.bagas.entities.Credit;
 import com.bagas.gson.DBReader;
 import com.bagas.gson.GsonConfigurator;
 import com.google.gson.JsonArray;
-import com.google.gson.JsonElement;
+
+import java.io.IOException;
+import java.time.LocalDate;
+import java.util.List;
+import java.util.stream.Collectors;
+
+import static com.bagas.utils.DateUtility.isInRange;
 
 public class CreditRepositoryImpl implements CreditRepository {
 
-	private final String ELEMENT_NAME = "credits";
+    private final String ELEMENT_NAME = "credits";
 
-	private DBReader dbReader;
-	
-	public CreditRepositoryImpl(DBReader dbReader) {
-		this.dbReader = dbReader;
-	}
+    private DBReader dbReader;
 
-	@Override
-	public List<Credit> getByUserIdPeriod(long userId, LocalDate dateFrom, LocalDate dateTo) throws IOException {
-		JsonArray creditsJson = dbReader.getJsonArrayByName(ELEMENT_NAME);
-		List<Credit> credits = new ArrayList<Credit>();
-		
-		for (JsonElement element : creditsJson) {
-			Credit credit = GsonConfigurator.getGson().fromJson(element, Credit.class);
-			if(credit.getUserId() == userId && dateFrom.isBefore(credit.getDate()) && dateTo.isAfter(credit.getDate())) {
-				credits.add(credit);
-			}
-		}
-		return credits;
-	}
+    public CreditRepositoryImpl(DBReader dbReader) {
+        this.dbReader = dbReader;
+    }
+
+    @Override
+    public List<Credit> getByUserIdPeriod(Long userId, LocalDate dateFrom, LocalDate dateTo) throws IOException {
+        JsonArray creditsJson = dbReader.getJsonArrayByName(ELEMENT_NAME);
+
+        return creditsJson.asList().stream()
+                .map(credit -> GsonConfigurator.getGson().fromJson(credit, Credit.class))
+                .filter(credit -> credit.getUserId() == userId && isInRange(dateFrom, dateTo, credit.getDate()))
+                .collect(Collectors.toList());
+    }
 }

@@ -1,21 +1,24 @@
 package com.bagas.services;
 
 import com.bagas.entities.*;
-import com.bagas.entities.enums.StatusType;
+import com.bagas.entities.enums.ShowForType;
 import com.bagas.exceptions.UserNotFoundException;
 import com.bagas.gson.DBReader;
 import com.bagas.repositories.*;
 import com.bagas.utils.TableGenerator;
 
 import java.io.IOException;
-import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
+import java.util.stream.Collectors;
+
+import static com.bagas.utils.ConverterCurrency.convertToBr;
+import static com.bagas.utils.ResultMapper.createResult;
 
 public class AppService {
 
-    private UserService userService;
+    private final UserService userService;
 
     private CreditService creditService;
 
@@ -33,13 +36,14 @@ public class AppService {
         TableGenerator tableGenerator = new TableGenerator();
         StringBuilder table = tableGenerator.createTable();
 
-        List<Result> results = getResultsByUsers(settings.getShowFor().getUsers(), settings);
+        List<Result> results = getResultsByUsers(settings);
         sortResultsBySettings(settings.getSortBy(), results);
         table = tableGenerator.addTransactions(results, table);
 
         System.out.println(table.toString());
     }
 
+    // Через стрим тут не сделаешь 
     private void sortResultsBySettings(String sortBy, List<Result> results) {
         Comparator<Result> comparator;
         if (sortBy.equals("NAME")) {
@@ -54,13 +58,14 @@ public class AppService {
         results.sort(comparator);
     }
 
-    private List<Result> getResultsByUsers(List<Integer> usersId, Settings settings) throws IOException, UserNotFoundException {
-        List<Result> results = new ArrayList<Result>();
+    private List<Result> getResultsByUsers(Settings settings) throws IOException {
+        List<Result> results = new ArrayList<>();
         List<Event> events = transactionService.getEventsByDateTo(settings.getDateTo());
+        List<User> users = userService.getUsers(settings);
 
-        for (Integer userId : usersId) {
-            User user = userService.getById(userId);
-            List<Credit> credits = creditService.getByUserIdPeriod(userId, settings.getDateFrom(), settings.getDateTo());
+        for (User user : users) {
+            List<Credit> credits = creditService
+                    .getByUserIdPeriod(user.getId(), settings.getDateFrom(), settings.getDateTo());
 
             for (Credit credit : credits) {
                 Discount discount = creditService.getDiscountByDate(credit.getDate());
@@ -69,20 +74,9 @@ public class AppService {
                 List<Transaction> transactions = transactionService.getByCreditIdDateTo(credit.getId(),
                         settings.getDateFrom(), settings.getDateTo());
 
-                BigDecimal startCostEUR = settings.getStartCostEUR();
-                BigDecimal startCostUSD = settings.getStartCostUSD();
-
-                transactions.forEach(tr -> tr.convertToBr(new ArrayList<>(events), settings));
-
-                settings.setStartCostEUR(startCostEUR);
-                settings.setStartCostUSD(startCostUSD);
-
-                credit.processTransactions(transactions, settings.getStartCostUSD(), settings.getStartCostEUR(),
-                        settings.getDateTo());
-
-                String fullName = user.getName() + " " + user.getSecondName();
-                results.add(new Result(credit.getId(), userId, fullName, transactions.size(), credit.getMoney(),
-                        credit.getPeriod(), StatusType.getStatusType(credit.getMoney()), credit.getRepayment()));
+                convertToBr(transactions, new ArrayList<>(events), settings);
+                credit.processTransactions(transactions, settings.getDateTo());
+                results.add(createResult(credit, user, transactions.size()));
             }
         }
 

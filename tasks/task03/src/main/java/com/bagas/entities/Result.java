@@ -6,12 +6,14 @@ import java.time.LocalDate;
 import com.bagas.entities.enums.PeriodType;
 import com.bagas.entities.enums.StatusType;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
 
 @Getter
 @Setter
 @AllArgsConstructor
+@Builder
 public class Result {
 
 	private long creditId;
@@ -29,11 +31,4 @@ public class Result {
 	private StatusType statusType;
 	
 	private LocalDate dateRepayment;
-
-	@Override
-	public String toString() {
-		return "Result [creditId=" + creditId + ", userId=" + userId + ", fullName=" + fullName + ", countTransactions="
-				+ countTransactions + ", debt=" + debt + ", periodType=" + periodType + ", statusType=" + statusType
-				+ ", dateRepayment=" + dateRepayment + "]";
-	}
 }
