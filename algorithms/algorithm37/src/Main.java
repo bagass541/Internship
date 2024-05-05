@@ -25,26 +25,29 @@ public class Main {
     }
 
     public static Node connect(Node root) {
-       Node dummyHead = new Node(0);
-       Node pre = dummyHead;
-       while(root != null) {
-           if(root.left != null) {
-               pre.next = root.left;
-               pre = pre.next;
-           }
-           if(root.right != null) {
-               pre.next = root.right;
-               pre = pre.next;
-           }
-           root = root.next;
-           if(root == null) {
-               pre = dummyHead;
-               root = dummyHead.next;
-               dummyHead.next = null;
-           }
-       }
+        Node dummyNode = new Node(0);
+        Node pre = dummyNode;
+        Node dummyRoot = root;
 
-       return root;
+        while (root != null) {
+            if (root.left != null) {
+                pre.next = root.left;
+                pre = pre.next;
+            }
+            if (root.right != null) {
+                pre.next = root.right;
+                pre = pre.next;
+            }
+
+            root = root.next;
+            if (root == null) {
+                pre = dummyNode;
+                root = dummyNode.next;
+                dummyNode.next = null;
+            }
+        }
+
+        return dummyRoot;
     }
 
     static class Node {
