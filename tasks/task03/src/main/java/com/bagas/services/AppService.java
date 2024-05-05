@@ -43,7 +43,7 @@ public class AppService {
         System.out.println(table.toString());
     }
 
-    // Через стрим тут не сделаешь 
+    // Через стрим тут не сделаешь
     private void sortResultsBySettings(String sortBy, List<Result> results) {
         Comparator<Result> comparator;
         if (sortBy.equals("NAME")) {

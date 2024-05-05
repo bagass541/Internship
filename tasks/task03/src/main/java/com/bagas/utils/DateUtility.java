@@ -21,11 +21,6 @@ public class DateUtility {
     }
 
     public static boolean isInRange(LocalDate dateFrom, LocalDate dateTo, LocalDate date) {
-       // Какой-то трабл с этим вроде
         return dateFrom.isBefore(date) && dateTo.isAfter(date);
     }
-
-//    public static boolean isBefore(LocalDate dateFrom, LocalDate date) {
-//        return da
-//    }
 }
