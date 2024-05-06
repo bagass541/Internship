@@ -10,21 +10,21 @@ import com.google.gson.GsonBuilder;
 
 public class GsonConfigurator {
 
-	private static Gson gson;
-	
-	public GsonConfigurator() {
-		
-	}
+    private static Gson gson;
 
-	public static Gson getGson() {
-		if(gson != null) {
-			return gson;
-		} else {
-			return gson = new GsonBuilder()
-					.registerTypeAdapter(LocalDate.class, new LocalDateAdapter())
-					.registerTypeAdapter(Discount.class, new DiscountAdapter())
-					.setPrettyPrinting()
-					.create();
-		}
-	}
+    public GsonConfigurator() {
+
+    }
+
+    public static Gson getGson() {
+        if (gson != null) {
+            return gson;
+        } else {
+            return gson = new GsonBuilder()
+                    .registerTypeAdapter(LocalDate.class, new LocalDateAdapter())
+                    .registerTypeAdapter(Discount.class, new DiscountAdapter())
+                    .setPrettyPrinting()
+                    .create();
+        }
+    }
 }

@@ -40,7 +40,7 @@ public class Credit {
     }
 
     public void applyAddPercents(LocalDate dateFrom, LocalDate dateTo) {
-        if(money.compareTo(BigDecimal.ZERO) < 0) {
+        if(isZeroBalance(money)) {
             return;
         }
 
@@ -60,7 +60,7 @@ public class Credit {
 
             money = money.subtract(transaction.getMoney());
 
-            if (money.compareTo(BigDecimal.ZERO) < 0) {
+            if (isZeroBalance(money)) {
                 repayment = transaction.getDate();
                 break;
             }
@@ -69,5 +69,9 @@ public class Credit {
         if (transactions.isEmpty() || !dateCredit.equals(dateTo)) {
             applyAddPercents(dateCredit, dateTo);
         }
+    }
+
+    private boolean isZeroBalance(BigDecimal money) {
+        return money.compareTo(BigDecimal.ZERO) <= 0;
     }
 }

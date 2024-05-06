@@ -8,5 +8,5 @@ import java.util.List;
 
 public interface EventRepository {
 
-	List<Event> getByDateTo(LocalDate dateTo) throws IOException;
+    List<Event> getByDateTo(LocalDate dateTo) throws IOException;
 }

@@ -30,7 +30,8 @@ public class DiscountRepositoryImpl implements DiscountRepository {
         return discountsJson.asList().stream()
                 .map(discount -> GsonConfigurator.getGson().fromJson(discount, Discount.class))
                 .filter(discount -> (discount.getType() == DiscountType.ONE && discount.getDate().equals(date))
-                        || (discount.getType() == DiscountType.MANY && isInRange(discount.getDateFrom(), discount.getDateTo(), date)))
+                        || (discount.getType() == DiscountType.MANY
+                        && isInRange(discount.getDateFrom(), discount.getDateTo(), date)))
                 .max(Comparator.comparing(Discount::getDiscount));
     }
 }

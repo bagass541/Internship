@@ -8,6 +8,6 @@ import java.util.Optional;
 
 
 public interface DiscountRepository {
-	
-	Optional<Discount> getByDate(LocalDate date) throws IOException;
+
+    Optional<Discount> getByDate(LocalDate date) throws IOException;
 }

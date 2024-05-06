@@ -8,16 +8,16 @@ import java.math.BigDecimal;
 @Getter
 @RequiredArgsConstructor
 public enum StatusType {
-	IN_PROGRESS("IN_PROGRESS"),
-	DONE("DONE");
+    IN_PROGRESS("IN_PROGRESS"),
+    DONE("DONE");
 
-	private final String statusTypeStr;
+    private final String statusTypeStr;
 
-	public static StatusType getStatusType(BigDecimal debt) {
-		if (debt.compareTo(BigDecimal.ZERO) < 0) {
-			return StatusType.DONE;
-		}
+    public static StatusType getStatusType(BigDecimal debt) {
+        if (debt.compareTo(BigDecimal.ZERO) < 0) {
+            return StatusType.DONE;
+        }
 
-		return StatusType.IN_PROGRESS;
-	}
+        return StatusType.IN_PROGRESS;
+    }
 }

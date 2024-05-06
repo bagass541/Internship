@@ -11,20 +11,20 @@ import java.util.List;
 
 public class TransactionService {
 
-	private TransactionRepository transactionRepository;
-	
-	private EventRepository eventRepository;
+    private TransactionRepository transactionRepository;
 
-	public TransactionService(TransactionRepository transactionRepository, EventRepository eventRepository) {
-		this.transactionRepository = transactionRepository;
-		this.eventRepository = eventRepository;
-	}
+    private EventRepository eventRepository;
 
-	public List<Transaction> getByCreditIdDateTo(Long creditId, LocalDate dateFrom, LocalDate dateTo) throws IOException {
-		return transactionRepository.getByCreditIdDateTo(creditId, dateFrom, dateTo);
-	}
-	
-	public List<Event> getEventsByDateTo(LocalDate dateTo) throws IOException {
-		return eventRepository.getByDateTo(dateTo);
-	}
+    public TransactionService(TransactionRepository transactionRepository, EventRepository eventRepository) {
+        this.transactionRepository = transactionRepository;
+        this.eventRepository = eventRepository;
+    }
+
+    public List<Transaction> getByCreditIdDateTo(Long creditId, LocalDate dateFrom, LocalDate dateTo) throws IOException {
+        return transactionRepository.getByCreditIdDateTo(creditId, dateFrom, dateTo);
+    }
+
+    public List<Event> getEventsByDateTo(LocalDate dateTo) throws IOException {
+        return eventRepository.getByDateTo(dateTo);
+    }
 }

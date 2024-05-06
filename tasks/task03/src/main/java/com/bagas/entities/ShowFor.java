@@ -8,7 +8,7 @@ import lombok.Data;
 @Data
 public class ShowFor {
 
-	private ShowForType type;
-	
-	private List<String> users;
+    private ShowForType type;
+
+    private List<String> users;
 }
