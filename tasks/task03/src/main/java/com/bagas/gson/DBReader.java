@@ -38,9 +38,11 @@ public class DBReader {
 
             return GsonConfigurator.getGson().fromJson(reader, JsonObject.class);
         } catch (NoSuchFileException ex) {
-            System.out.println("Не удалось получить базу данных");
-            return null;
+            System.out.println("db.json не найден");
+            System.exit(0);
         }
+
+        return null;
     }
 
     public JsonArray getJsonArrayByName(String name) throws IOException {

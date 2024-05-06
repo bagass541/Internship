@@ -1,11 +1,6 @@
 package com.bagas.gson;
 
 import java.io.*;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.util.Objects;
-import java.util.stream.Stream;
 
 import com.bagas.entities.Settings;
 import com.bagas.entities.ShowFor;
@@ -16,7 +11,7 @@ public class SettingsReader {
     private final String PATH_TO_SETTINGS = "settings.json";
 
     public Settings getSettings() throws IOException {
-        JsonObject jsonObject;
+        JsonObject jsonObject = null;
 
         InputStream in = Thread
                 .currentThread()
@@ -26,6 +21,9 @@ public class SettingsReader {
         try (BufferedReader reader = new BufferedReader(new InputStreamReader(in))) {
 
             jsonObject = GsonConfigurator.getGson().fromJson(reader, JsonObject.class);
+        } catch (NullPointerException ex) {
+            System.out.println("Settings не найдены");
+            System.exit(0);
         }
 
         JsonObject settingsJson = jsonObject.getAsJsonObject("settings");

@@ -6,22 +6,10 @@
   <component name="ChangeListManager">
     <list default="true" id="01555618-58f5-4a3c-a693-9821ab44a708" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/bagas/entities/Credit.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/bagas/entities/Credit.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/bagas/entities/ShowFor.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/bagas/entities/ShowFor.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/bagas/entities/enums/StatusType.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/bagas/entities/enums/StatusType.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/bagas/gson/GsonConfigurator.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/bagas/gson/GsonConfigurator.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/bagas/gson/GsonScanner.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/bagas/gson/GsonScanner.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/bagas/gson/DBReader.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/bagas/gson/DBReader.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/bagas/gson/SettingsReader.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/bagas/gson/SettingsReader.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/bagas/repositories/CreditRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/bagas/repositories/CreditRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/bagas/repositories/DiscountRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/bagas/repositories/DiscountRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/bagas/repositories/DiscountRepositoryImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/bagas/repositories/DiscountRepositoryImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/bagas/repositories/EventRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/bagas/repositories/EventRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/bagas/repositories/TransactionRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/bagas/repositories/TransactionRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/bagas/repositories/UserRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/bagas/repositories/UserRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/bagas/services/CreditService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/bagas/services/CreditService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/bagas/services/TransactionService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/bagas/services/TransactionService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/bagas/utils/ConverterCurrency.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/bagas/utils/ConverterCurrency.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/bagas/utils/JsonFileFilter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/bagas/utils/JsonFileFilter.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/bagas/services/AppService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/bagas/services/AppService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/db.json" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -130,8 +118,17 @@
       <breakpoints>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/com/bagas/services/AppService.java</url>
-          <line>63</line>
+          <line>62</line>
           <option name="timeStamp" value="2" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-method">
+          <url>file://$PROJECT_DIR$/src/main/java/com/bagas/gson/DBReader.java</url>
+          <line>31</line>
+          <properties class="com.bagas.gson.DBReader" method="getJsonRootDB">
+            <option name="EMULATED" value="true" />
+            <option name="WATCH_EXIT" value="false" />
+          </properties>
+          <option name="timeStamp" value="3" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
