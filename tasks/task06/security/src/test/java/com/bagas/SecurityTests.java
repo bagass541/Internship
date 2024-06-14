@@ -18,6 +18,7 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
 
 import static com.bagas.constants.CommonConstants.JWT_LOGIN_ENDPOINT;
+import static com.bagas.constants.CommonConstants.MAIN_DOMAIN;
 import static com.bagas.constants.CommonConstants.SECURED_ENDPOINT;
 import static com.bagas.constants.TestConstants.BEARER_BEGGINING;
 import static com.bagas.constants.TestConstants.HELLO_SECURED_MESSAGE;
@@ -61,7 +62,7 @@ public class SecurityTests {
                         .content(ow.writeValueAsString(user)))
                 .andExpect(status().isOk()).andReturn();
 
-        Thread.sleep(800);
+        Thread.sleep(1000);
     }
 
     @Test
@@ -83,7 +84,7 @@ public class SecurityTests {
         String content = mvcResultOfSecured.getResponse().getContentAsString();
         Assertions.assertEquals(content, HELLO_SECURED_MESSAGE);
 
-        Thread.sleep(800);
+        Thread.sleep(1000);
     }
 
     @Test
@@ -101,7 +102,7 @@ public class SecurityTests {
                         .content(ow.writeValueAsString(user)))
                 .andExpect(status().isOk());
 
-        mockMvc.perform(get(SECURED_ENDPOINT)
+        mockMvc.perform(get(MAIN_DOMAIN + SECURED_ENDPOINT)
                         .with(request -> {
                             request.setRemoteAddr(OTHER_REMOTE_ADDR);
                             return request;
@@ -110,6 +111,6 @@ public class SecurityTests {
                         .content(ow.writeValueAsString(user)))
                 .andExpect(redirectedUrl(LOGIN_ENDPOINT));
 
-        Thread.sleep(800);
+        Thread.sleep(1000);
     }
 }

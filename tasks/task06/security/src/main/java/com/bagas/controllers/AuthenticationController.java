@@ -5,33 +5,32 @@ import com.bagas.entities.User;
 import com.bagas.services.AuthenticationService;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import static com.bagas.constants.CommonConstants.MAIN_DOMAIN;
+import static com.bagas.constants.CommonConstants.JWT_LOGIN_ENDPOINT;
+import static com.bagas.constants.CommonConstants.REFRESH_TOKEN_ENDPOINT;
+import static com.bagas.constants.CommonConstants.REGISTER_ENDPOINT;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping(MAIN_DOMAIN)
 public class AuthenticationController {
 
     private final AuthenticationService authService;
 
-    @PostMapping("/register")
-    public ResponseEntity<AuthenticationResponse> register(@RequestBody User request) {
-        return ResponseEntity.ok(authService.register(request));
+    @PostMapping(REGISTER_ENDPOINT)
+    public AuthenticationResponse register(@RequestBody User request) {
+        return authService.register(request);
     }
 
-    @PostMapping("/jwt-login")
-    public ResponseEntity<AuthenticationResponse> login(@RequestBody User user, HttpServletRequest request) {
-        return ResponseEntity.ok(authService.authenticate(user, request));
+    @PostMapping(JWT_LOGIN_ENDPOINT)
+    public AuthenticationResponse login(@RequestBody User user, HttpServletRequest request) {
+        return authService.authenticate(user, request);
     }
 
-    @PostMapping("/refresh-token")
-    public ResponseEntity<AuthenticationResponse> refreshToken(HttpServletRequest request) {
-        return ResponseEntity.ok(authService.refreshToken(request));
+    @PostMapping(REFRESH_TOKEN_ENDPOINT)
+    public AuthenticationResponse refreshToken(HttpServletRequest request) {
+        return authService.refreshToken(request);
     }
 }

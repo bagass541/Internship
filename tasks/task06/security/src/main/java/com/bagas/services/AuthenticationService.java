@@ -19,13 +19,13 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.Objects;
 
-import static com.bagas.constants.ExceptionMessageConstants.USER_NOT_FOUND_MESSAGE;
 import static com.bagas.constants.CommonConstants.BEGINNING_AUTH_HEADER;
 import static com.bagas.constants.CommonConstants.LOGIN_SUCCESSFUL_MESSAGE;
 import static com.bagas.constants.CommonConstants.REGISTRATION_SUCCESSFUL_MESSAGE;
 import static com.bagas.constants.CommonConstants.TOKEN_GENERATED_MESSAGE;
 import static com.bagas.constants.CommonConstants.UNAUTHORIZED_MESSAGE;
 import static com.bagas.constants.CommonConstants.USER_EXISTS_MESSAGE;
+import static com.bagas.constants.ExceptionMessageConstants.USER_NOT_FOUND_MESSAGE;
 
 @Service
 @RequiredArgsConstructor
@@ -58,10 +58,11 @@ public class AuthenticationService {
     }
 
     public AuthenticationResponse authenticate(User requestedUser, HttpServletRequest request) {
-        authenticationManager.authenticate(
+       authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(
                         requestedUser.getUsername(),
-                        requestedUser.getPassword()
+                        requestedUser.getPassword(),
+                        null
                 )
         );
 

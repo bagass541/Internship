@@ -18,10 +18,11 @@ import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 import static com.bagas.constants.CommonConstants.JWT_LOGIN_ENDPOINT;
-import static com.bagas.constants.CommonConstants.LOGIN_ENDPOINT;
 import static com.bagas.constants.CommonConstants.MAIN_DOMAIN;
 import static com.bagas.constants.CommonConstants.REGISTER_ENDPOINT;
 import static com.bagas.constants.CommonConstants.SECURED_ENDPOINT;
+import static com.bagas.constants.CommonConstants.SWAGGER_DOCS_ENDPOINTS;
+import static com.bagas.constants.CommonConstants.SWAGGER_UI_ENDPOINTS;
 
 @Configuration
 @EnableWebSecurity
@@ -39,7 +40,8 @@ public class SecurityConfig {
                 .cors(AbstractHttpConfigurer::disable)
                 .httpBasic(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(authorize -> {
-                    authorize.requestMatchers(REGISTER_ENDPOINT, JWT_LOGIN_ENDPOINT, LOGIN_ENDPOINT).permitAll();
+                    authorize.requestMatchers(REGISTER_ENDPOINT, JWT_LOGIN_ENDPOINT,
+                            SWAGGER_UI_ENDPOINTS, SWAGGER_DOCS_ENDPOINTS).permitAll();
                     authorize.anyRequest().authenticated();
                 })
                 .userDetailsService(userService)
