@@ -1,0 +1,31 @@
+import java.util.List;
+
+public class Main {
+    public static void main(String[] args) {
+        System.out.println(wordBreak("aaaaaaa", List.of("aaa", "aaaa")));
+        System.out.println(wordBreak("leetcode", List.of("leet", "code")));
+        System.out.println(wordBreak("abcd", List.of("a", "abc", "b", "cd")));
+        System.out.println(wordBreak("a", List.of("a")));
+    }
+
+    public static boolean wordBreak(String s, List<String> wordDict) {
+        int n = s.length();
+        boolean[] dp = new boolean[n + 1];
+        dp[0] = true;
+        int maxLength = 0;
+        for (String word : wordDict) {
+            maxLength = Math.max(maxLength, word.length());
+        }
+
+        for (int i = 1; i <= n; i++) {
+            for (int j = i - 1; j >= Math.max(i - maxLength - 1, 0); j--) {
+                if (dp[j] && wordDict.contains(s.substring(j, i))) {
+                    dp[i] = true;
+                    break;
+                }
+            }
+        }
+
+        return dp[n];
+    }
+}
