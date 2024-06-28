@@ -1,10 +1,14 @@
 package com.bagas.services;
 
+import com.bagas.dto.UserDTO;
 import com.bagas.entities.AuthenticationResponse;
+import com.bagas.entities.Role;
 import com.bagas.entities.Token;
 import com.bagas.entities.User;
-import com.bagas.mappers.TokenMapper;
-import com.bagas.mappers.UserMapper;
+import com.bagas.exceptions.UserExistsException;
+import com.bagas.mappers.TokenCreator;
+import com.bagas.mappers.UserCreator;
+import com.bagas.repositories.RoleRepository;
 import com.bagas.repositories.TokenRepository;
 import com.bagas.repositories.UserRepository;
 import jakarta.servlet.http.HttpServletRequest;
@@ -18,10 +22,11 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Objects;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 import static com.bagas.constants.CommonConstants.BEGINNING_AUTH_HEADER;
 import static com.bagas.constants.CommonConstants.LOGIN_SUCCESSFUL_MESSAGE;
-import static com.bagas.constants.CommonConstants.REGISTRATION_SUCCESSFUL_MESSAGE;
 import static com.bagas.constants.CommonConstants.TOKEN_GENERATED_MESSAGE;
 import static com.bagas.constants.CommonConstants.UNAUTHORIZED_MESSAGE;
 import static com.bagas.constants.CommonConstants.USER_EXISTS_MESSAGE;
@@ -33,6 +38,8 @@ public class AuthenticationService {
 
     private final UserRepository userRepo;
 
+    private final RoleRepository roleRepo;
+
     private final PasswordEncoder passwordEncoder;
 
     private final JwtService jwtService;
@@ -41,33 +48,32 @@ public class AuthenticationService {
 
     private final TokenRepository tokenRepo;
 
-    public AuthenticationResponse register(User request) {
+    public void register(User request) {
         if (userRepo.findByUsername(request.getUsername()).isPresent()) {
-            return new AuthenticationResponse(null, null, USER_EXISTS_MESSAGE);
+            throw new UserExistsException(USER_EXISTS_MESSAGE);
         }
 
         User user = createUser(request);
-        user = userRepo.save(user);
 
-        String accessToken = jwtService.generateAccessToken(user, null);
-        String refreshToken = jwtService.generateRefreshToken(user, null);
+        Set<Role> roles = user.getAuthorities().stream()
+                .map(role -> roleRepo.findByAuthority(role.getAuthority()).orElse(new Role(role.getAuthority())))
+                .collect(Collectors.toSet());
 
-        saveUserToken(accessToken, refreshToken, user);
-
-        return new AuthenticationResponse(accessToken, refreshToken, REGISTRATION_SUCCESSFUL_MESSAGE);
+        user.setAuthorities(roles);
+        userRepo.save(user);
     }
 
-    public AuthenticationResponse authenticate(User requestedUser, HttpServletRequest request) {
+    public AuthenticationResponse authenticate(UserDTO requestedUserDTO, HttpServletRequest request) {
        authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(
-                        requestedUser.getUsername(),
-                        requestedUser.getPassword(),
+                        requestedUserDTO.getUsername(),
+                        requestedUserDTO.getPassword(),
                         null
                 )
         );
 
         String userIp = request.getRemoteAddr();
-        User user = userRepo.findByUsername(requestedUser.getUsername())
+        User user = userRepo.findByUsername(requestedUserDTO.getUsername())
                 .orElseThrow(() -> new UsernameNotFoundException(USER_NOT_FOUND_MESSAGE));
 
         String accessToken = jwtService.generateAccessToken(user, userIp);
@@ -90,12 +96,12 @@ public class AuthenticationService {
     }
 
     private void saveUserToken(String accessToken, String refreshToken, User user) {
-        Token token = TokenMapper.createToken(accessToken, refreshToken, user);
+        Token token = TokenCreator.createToken(accessToken, refreshToken, user);
         tokenRepo.save(token);
     }
 
     private User createUser(User request) {
-        return UserMapper.createUser(request.getUsername(), passwordEncoder.encode(request.getPassword()),
+        return UserCreator.createUser(request.getUsername(), passwordEncoder.encode(request.getPassword()),
                 request.getAuthorities(), true, true,
                 true, true);
     }

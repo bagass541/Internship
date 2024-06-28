@@ -9,7 +9,7 @@ import java.util.Date;
 import static com.bagas.constants.CommonConstants.IP_CLAIM;
 import static com.bagas.constants.CommonConstants.ROLES_CLAIM;
 
-public class JwtTokenMapper {
+public class JwtTokenCreator {
 
     public static String createJwtToken(UserDetails userDetails, long expireTime, String ip, SecretKey key) {
         return Jwts.builder()

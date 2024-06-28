@@ -1,5 +1,6 @@
 package com.bagas;
 
+import com.bagas.dto.UserDTO;
 import com.bagas.entities.User;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.ObjectWriter;
@@ -39,7 +40,7 @@ public class SecurityTests {
     @Autowired
     private MockMvc mockMvc;
 
-    private static User user;
+    private static UserDTO userDTO;
 
     private static ObjectWriter ow;
 
@@ -48,9 +49,9 @@ public class SecurityTests {
 
     @BeforeAll
     static void setUp() {
-        user = new User();
-        user.setUsername(USER_LOGIN);
-        user.setPassword(USER_PASSWORD);
+        userDTO = new UserDTO();
+        userDTO.setUsername(USER_LOGIN);
+        userDTO.setPassword(USER_PASSWORD);
 
         ow = new ObjectMapper().writer().withDefaultPrettyPrinter();
     }
@@ -59,7 +60,7 @@ public class SecurityTests {
     void testJwtLogin() throws Exception {
         mockMvc.perform(post(JWT_LOGIN_ENDPOINT)
                         .contentType(MediaType.APPLICATION_JSON)
-                        .content(ow.writeValueAsString(user)))
+                        .content(ow.writeValueAsString(userDTO)))
                 .andExpect(status().isOk()).andReturn();
 
         Thread.sleep(1000);
@@ -69,7 +70,7 @@ public class SecurityTests {
     void testAccessToSource() throws Exception {
         MvcResult mvcResultOfAuth = mockMvc.perform(post(JWT_LOGIN_ENDPOINT)
                         .contentType(MediaType.APPLICATION_JSON)
-                        .content(ow.writeValueAsString(user)))
+                        .content(ow.writeValueAsString(userDTO)))
                 .andExpect(status().isOk()).andReturn();
 
         String token = JsonPath.read(mvcResultOfAuth.getResponse().getContentAsString(), JSON_PATH_TO_ACCESS_TOKEN);
@@ -77,7 +78,7 @@ public class SecurityTests {
         MvcResult mvcResultOfSecured = mockMvc.perform(get(SECURED_ENDPOINT)
                         .header(HttpHeaders.AUTHORIZATION, BEARER_BEGGINING + token)
                         .contentType(MediaType.APPLICATION_JSON)
-                        .content(ow.writeValueAsString(user)))
+                        .content(ow.writeValueAsString(userDTO)))
                 .andExpect(status().isOk())
                 .andReturn();
 
@@ -91,7 +92,7 @@ public class SecurityTests {
     void testLogoutIfIpChanged() throws Exception {
         MvcResult mvcResultOfAuth = mockMvc.perform(post(JWT_LOGIN_ENDPOINT)
                         .contentType(MediaType.APPLICATION_JSON)
-                        .content(ow.writeValueAsString(user)))
+                        .content(ow.writeValueAsString(userDTO)))
                 .andExpect(status().isOk()).andReturn();
 
         String token = JsonPath.read(mvcResultOfAuth.getResponse().getContentAsString(), JSON_PATH_TO_ACCESS_TOKEN);
@@ -99,7 +100,7 @@ public class SecurityTests {
         mockMvc.perform(get(SECURED_ENDPOINT)
                         .header(HttpHeaders.AUTHORIZATION, BEARER_BEGGINING + token)
                         .contentType(MediaType.APPLICATION_JSON)
-                        .content(ow.writeValueAsString(user)))
+                        .content(ow.writeValueAsString(userDTO)))
                 .andExpect(status().isOk());
 
         mockMvc.perform(get(MAIN_DOMAIN + SECURED_ENDPOINT)
@@ -108,7 +109,7 @@ public class SecurityTests {
                             return request;
                         })
                         .contentType(MediaType.APPLICATION_JSON)
-                        .content(ow.writeValueAsString(user)))
+                        .content(ow.writeValueAsString(userDTO)))
                 .andExpect(redirectedUrl(LOGIN_ENDPOINT));
 
         Thread.sleep(1000);

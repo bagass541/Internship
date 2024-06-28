@@ -5,7 +5,7 @@ import com.bagas.entities.User;
 
 import static com.bagas.utils.ParameterChecker.checkParameter;
 
-public class TokenMapper {
+public class TokenCreator {
 
     public static Token createToken(String accessToken, String refreshToken, User user) {
         return Token.builder()

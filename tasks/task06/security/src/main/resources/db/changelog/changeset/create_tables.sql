@@ -8,15 +8,15 @@ CREATE TABLE IF NOT EXISTS users (
 	is_enabled BOOLEAN NOT NULL
 );
 
-CREATE TABLE IF NOT EXISTS authorities (
+CREATE TABLE IF NOT EXISTS roles (
 	id SERIAL PRIMARY KEY,
 	authority VARCHAR NOT NULL
 );
 
-CREATE TABLE IF NOT EXISTS users_authorities (
+CREATE TABLE IF NOT EXISTS users_roles (
 	user_id BIGINT,
-	authority_id BIGINT,
-	PRIMARY KEY(user_id, authority_id)
+	role_id BIGINT,
+	PRIMARY KEY(user_id, role_id)
 );
 
 CREATE TABLE IF NOT EXISTS tokens (

@@ -14,7 +14,7 @@ import org.springframework.security.core.GrantedAuthority;
 @Getter
 @Setter
 @NoArgsConstructor
-@Table(name = "authorities")
+@Table(name = "roles")
 public class Role implements GrantedAuthority {
 
     @Id
@@ -26,5 +26,9 @@ public class Role implements GrantedAuthority {
     @Override
     public String toString() {
         return this.authority;
+    }
+
+    public Role(String authority) {
+        this.authority = authority;
     }
 }

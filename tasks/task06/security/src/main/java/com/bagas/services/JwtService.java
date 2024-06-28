@@ -16,7 +16,7 @@ import java.util.function.Function;
 import static com.bagas.constants.CommonConstants.DEFAULT_ACCESS_TOKEN_EXPIRED_TIME;
 import static com.bagas.constants.CommonConstants.DEFAULT_REFRESH_EXPIRED_TIME;
 import static com.bagas.constants.CommonConstants.SECRET_KEY;
-import static com.bagas.mappers.JwtTokenMapper.createJwtToken;
+import static com.bagas.mappers.JwtTokenCreator.createJwtToken;
 
 @Service
 @RequiredArgsConstructor

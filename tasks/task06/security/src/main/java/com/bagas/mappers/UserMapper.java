@@ -1,26 +1,14 @@
 package com.bagas.mappers;
 
-import com.bagas.entities.Role;
+import com.bagas.dto.UserDTO;
 import com.bagas.entities.User;
+import org.mapstruct.Mapper;
+import org.mapstruct.factory.Mappers;
 
-import java.util.Set;
+@Mapper(componentModel = "spring")
+public interface UserMapper {
 
-import static com.bagas.utils.ParameterChecker.checkParameter;
+    UserMapper INSTANCE = Mappers.getMapper(UserMapper.class);
 
-public class UserMapper {
-
-    public static User createUser(String username, String password, Set<Role> authorities,
-                                  boolean isEnabled, boolean isAccountNonExpired,
-                                  boolean isCredentialsNonExpired, boolean isAccountNonLocked) {
-
-        return User.builder()
-                .username(checkParameter(username))
-                .password(checkParameter(password))
-                .authorities(authorities)
-                .isEnabled(isEnabled)
-                .isAccountNonExpired(isAccountNonExpired)
-                .isCredentialsNonExpired(isCredentialsNonExpired)
-                .isAccountNonLocked(isAccountNonLocked)
-                .build();
-    }
+    UserDTO toDTO(User user);
 }
