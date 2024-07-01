@@ -8,7 +8,7 @@ services:
     depends_on:
       - db
     environment:
-      - SPRING_DATASOURCE_URL=jdbc:postgresql://db:5439/catalog
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://db-catalog:5439/catalog
       - SPRING_DATASOURCE_USERNAME=bagas
       - SPRING_DATASOURCE_PASSWORD=bagas
       - SPRING_LIQUIBASE_CHANGE-LOG=/db/changelog/db.changelog-master.xml
@@ -17,7 +17,7 @@ services:
 
   db:
     image: postgres:13.14-bullseye
-    container_name: db
+    container_name: db-catalog
     environment:
 #      POSTGRES_USER: ${DB_USERNAME}
 #      POSTGRES_PASSWORD: ${DB_PASSWORD}

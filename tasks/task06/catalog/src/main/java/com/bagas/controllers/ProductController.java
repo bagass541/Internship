@@ -1,7 +1,6 @@
 package com.bagas.controllers;
 
 import com.bagas.dto.ProductDTO;
-import com.bagas.exceptions.ProductNotFoundException;
 import com.bagas.services.ProductService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
@@ -15,8 +14,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
 
@@ -41,9 +40,11 @@ public class ProductController {
         return productService.getById(id);
     }
 
-    @GetMapping(PRODUCTS_BY_SUBCATEGORY_ENDPOINT + ID_ENDPOINT)
-    public List<ProductDTO> getProductsBySubcategory(@PathVariable("id") Long id) {
-        return productService.getBySubcategoryId(id);
+    @GetMapping(value = PRODUCTS_BY_SUBCATEGORY_ENDPOINT + ID_ENDPOINT, params = {"page", "size"})
+    public List<ProductDTO> getProductsBySubcategory(@PathVariable("id") Long id, @RequestParam("page") int page,
+                                                     @RequestParam("size") int size) {
+
+        return productService.getBySubcategoryId(id, page, size);
     }
 
     @PostMapping(CREATE_PRODUCT_ENDPOINT)
@@ -57,13 +58,9 @@ public class ProductController {
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     @Operation(summary = "update endpoint", security = @SecurityRequirement(name = "bearerAuth"))
     public ProductDTO updateProduct(@PathVariable(ID_PATH_VARIABLE) Long id,
-                                                    @RequestBody ProductDTO productDTO) {
+                                    @RequestBody ProductDTO productDTO) {
 
-        try {
-            return productService.update(id, productDTO);
-        } catch (ProductNotFoundException ex) {
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
-        }
+        return productService.update(id, productDTO);
     }
 
     @DeleteMapping(DELETE_PRODUCT_ENDPOINT)

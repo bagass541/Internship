@@ -1,7 +1,6 @@
 package com.bagas.controllers;
 
 import com.bagas.dto.GroupDTO;
-import com.bagas.exceptions.GroupNotFoundException;
 import com.bagas.services.GroupService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
@@ -17,7 +16,6 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
 
@@ -51,11 +49,7 @@ public class GroupController {
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     @Operation(summary = "update endpoint", security = @SecurityRequirement(name = "bearerAuth"))
     public GroupDTO updateGroup(@PathVariable(ID_PATH_VARIABLE) Long id, @RequestBody GroupDTO groupDTO) {
-        try {
-            return groupService.update(id, groupDTO);
-        } catch (GroupNotFoundException ex) {
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
-        }
+        return groupService.update(id, groupDTO);
     }
 
     @DeleteMapping(DELETE_GROUP_ENDPOINT)

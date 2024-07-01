@@ -5,9 +5,13 @@ import com.bagas.dto.ProductDTO;
 import com.bagas.entities.Description;
 import com.bagas.entities.Product;
 import com.bagas.entities.Subcategory;
+import org.mapstruct.BeanMapping;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
+import org.mapstruct.MappingTarget;
 import org.mapstruct.Named;
+import org.mapstruct.NullValuePropertyMappingStrategy;
+import org.mapstruct.control.DeepClone;
 import org.mapstruct.factory.Mappers;
 
 @Mapper(componentModel = "spring")
@@ -22,6 +26,10 @@ public interface ProductMapper {
     @Mapping(source = "parent", target = "subcategory", qualifiedByName = "parentToSubcategoryId")
     @Mapping(source = "descriptionDTO", target = "description", qualifiedByName = "descriptionDTOtoEntity")
     Product toEntity(ProductDTO productDTO);
+
+    @Mapping(target = "id", ignore = true)
+    @BeanMapping(nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE, mappingControl = DeepClone.class)
+    void updateProductFromDTO(ProductDTO productDTO, @MappingTarget Product product);
 
     @Named("subcategoryToParent")
     default Long subcategoryToParent(Subcategory subcategory) {

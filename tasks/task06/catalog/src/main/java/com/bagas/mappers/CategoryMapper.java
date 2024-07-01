@@ -5,9 +5,12 @@ import com.bagas.dto.SubcategoryDTO;
 import com.bagas.entities.Category;
 import com.bagas.entities.Group;
 import com.bagas.entities.Subcategory;
+import org.mapstruct.BeanMapping;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
+import org.mapstruct.MappingTarget;
 import org.mapstruct.Named;
+import org.mapstruct.NullValuePropertyMappingStrategy;
 import org.mapstruct.factory.Mappers;
 
 import java.util.List;
@@ -25,6 +28,10 @@ public interface CategoryMapper {
 
     @Mapping(source = "parent", target = "group", qualifiedByName = "parentToGroup")
     Category toEntity(CategoryDTO categoryDTO);
+
+    @Mapping(target = "id", ignore = true)
+    @BeanMapping(nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
+    void updateCategoryFromDTO(CategoryDTO categoryDTO, @MappingTarget Category category);
 
     @Named("groupToParent")
     default Long groupToParent(Group group) {

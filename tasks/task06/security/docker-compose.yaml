@@ -9,7 +9,7 @@ services:
       - db
       - redis
     environment:
-      - SPRING_DATASOURCE_URL=jdbc:postgresql://db:5438/security
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://db-security:5438/security
       - SPRING_DATASOURCE_USERNAME=bagas
       - SPRING_DATASOURCE_PASSWORD=bagas
       - SPRING_LIQUIBASE_CHANGE-LOG=/db/changelog/db.changelog-master.xml
@@ -38,7 +38,7 @@ services:
 
   db:
     image: postgres:13.14-bullseye
-    container_name: db
+    container_name: db-security
     environment:
       POSTGRES_USER: bagas
       POSTGRES_PASSWORD: bagas

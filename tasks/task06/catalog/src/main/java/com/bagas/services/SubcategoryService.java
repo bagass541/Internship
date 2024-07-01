@@ -5,7 +5,6 @@ import com.bagas.entities.Subcategory;
 import com.bagas.exceptions.SubcategoryNotFoundException;
 import com.bagas.mappers.SubcategoryMapper;
 import com.bagas.repositories.SubcategoryRepository;
-import com.bagas.updaters.SubcategoryUpdater;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -23,13 +22,13 @@ public class SubcategoryService {
     }
 
     public SubcategoryDTO update(Long id, SubcategoryDTO subcategoryDTO) {
-        Subcategory subcategory = subcategoryRepo.findById(id)
+        Subcategory subcategoryToUpdate = subcategoryRepo.findById(id)
                 .orElseThrow(() -> new SubcategoryNotFoundException(SUBCATEGORY_NOT_FOUND_MESSAGE));
 
-        SubcategoryUpdater.updateSubcategory(subcategory, subcategoryDTO);
-        subcategoryRepo.save(subcategory);
+        SubcategoryMapper.INSTANCE.updateSubcategoryFromDTO(subcategoryDTO, subcategoryToUpdate);
+        subcategoryRepo.save(subcategoryToUpdate);
 
-        return SubcategoryMapper.INSTANCE.toDTO(subcategory);
+        return SubcategoryMapper.INSTANCE.toDTO(subcategoryToUpdate);
     }
 
     public void deleteById(Long id) {

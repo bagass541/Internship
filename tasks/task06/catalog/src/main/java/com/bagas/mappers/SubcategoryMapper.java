@@ -5,9 +5,12 @@ import com.bagas.dto.SubcategoryDTO;
 import com.bagas.entities.Category;
 import com.bagas.entities.Product;
 import com.bagas.entities.Subcategory;
+import org.mapstruct.BeanMapping;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
+import org.mapstruct.MappingTarget;
 import org.mapstruct.Named;
+import org.mapstruct.NullValuePropertyMappingStrategy;
 import org.mapstruct.factory.Mappers;
 
 import java.util.List;
@@ -25,6 +28,10 @@ public interface SubcategoryMapper {
 
     @Mapping(source = "parent", target = "category", qualifiedByName = "parentToCategory")
     Subcategory toEntity(SubcategoryDTO subcategoryDTO);
+
+    @Mapping(target = "id", ignore = true)
+    @BeanMapping(nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
+    void updateSubcategoryFromDTO(SubcategoryDTO subcategoryDTO, @MappingTarget Subcategory subcategory);
 
     @Named("categoryToParent")
     default Long categoryToParent(Category category) {

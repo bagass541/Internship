@@ -1,7 +1,6 @@
 package com.bagas.controllers;
 
 import com.bagas.dto.CategoryDTO;
-import com.bagas.exceptions.CategoryNotFoundException;
 import com.bagas.services.CategoryService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
@@ -15,7 +14,6 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.server.ResponseStatusException;
 
 import static com.bagas.constants.CommonConstants.CREATE_CATEGORY_ENDPOINT;
 import static com.bagas.constants.CommonConstants.DELETE_CATEGORY_ENDPOINT;
@@ -41,13 +39,9 @@ public class CategoryController {
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     @Operation(summary = "update endpoint", security = @SecurityRequirement(name = "bearerAuth"))
     public CategoryDTO updateCategory(@PathVariable(ID_PATH_VARIABLE) Long id,
-                                                      @RequestBody CategoryDTO categoryDTO) {
+                                      @RequestBody CategoryDTO categoryDTO) {
 
-        try {
-            return categoryService.update(id, categoryDTO);
-        } catch (CategoryNotFoundException ex) {
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
-        }
+        return categoryService.update(id, categoryDTO);
     }
 
     @DeleteMapping(DELETE_CATEGORY_ENDPOINT)

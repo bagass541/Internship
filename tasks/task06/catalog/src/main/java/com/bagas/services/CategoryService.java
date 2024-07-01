@@ -5,7 +5,6 @@ import com.bagas.entities.Category;
 import com.bagas.exceptions.CategoryNotFoundException;
 import com.bagas.mappers.CategoryMapper;
 import com.bagas.repositories.CategoryRepository;
-import com.bagas.updaters.CategoryUpdater;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -26,7 +25,7 @@ public class CategoryService {
         Category categoryToUpdate = categoryRepo.findById(id)
                 .orElseThrow(() -> new CategoryNotFoundException(CATEGORY_NOT_FOUND_MESSAGE));
 
-        CategoryUpdater.updateCategory(categoryToUpdate, categoryDTO);
+        CategoryMapper.INSTANCE.updateCategoryFromDTO(categoryDTO, categoryToUpdate);
         categoryRepo.save(categoryToUpdate);
 
         return CategoryMapper.INSTANCE.toDTO(categoryToUpdate);

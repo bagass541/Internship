@@ -3,13 +3,17 @@ package com.bagas.services;
 import com.bagas.dto.ProductDTO;
 import com.bagas.entities.Product;
 import com.bagas.exceptions.ProductNotFoundException;
+import com.bagas.mappers.DescriptionMapper;
 import com.bagas.mappers.ProductMapper;
 import com.bagas.repositories.ProductRepository;
-import com.bagas.updaters.ProductUpdater;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 import static com.bagas.constants.ExceptionMessageConstants.PRODUCT_NOT_FOUND_MESSAGE;
@@ -27,8 +31,10 @@ public class ProductService {
         return ProductMapper.INSTANCE.toDTO(product);
     }
 
-    public List<ProductDTO> getBySubcategoryId(Long id) {
-        return productRepo.findBySubcategory_id(id).stream()
+    public List<ProductDTO> getBySubcategoryId(Long id, int page, int size) {
+        Pageable pageRequest = PageRequest.of(page, size);
+
+        return productRepo.findBySubcategory_id(id, pageRequest).stream()
                 .map(ProductMapper.INSTANCE::toDTO)
                 .collect(Collectors.toList());
     }
@@ -44,7 +50,13 @@ public class ProductService {
         Product productToUpdate = productRepo.findById(id)
                 .orElseThrow(() -> new ProductNotFoundException(PRODUCT_NOT_FOUND_MESSAGE));
 
-        ProductUpdater.updateProduct(productToUpdate, productDTO);
+        ProductMapper.INSTANCE.updateProductFromDTO(productDTO, productToUpdate);
+
+        if (Objects.nonNull(productDTO.getDescriptionDTO())) {
+            DescriptionMapper.INSTANCE
+                    .updateDescriptionFromDTO(productDTO.getDescriptionDTO(), productToUpdate.getDescription());
+        }
+
         productRepo.save(productToUpdate);
 
         return ProductMapper.INSTANCE.toDTO(productToUpdate);

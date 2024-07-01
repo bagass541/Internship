@@ -11,8 +11,6 @@ import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
-import static com.bagas.constants.CommonConstants.MAIN_DOMAIN;
-import static com.bagas.constants.CommonConstants.PRODUCTS_BY_SUBCATEGORY_ENDPOINT;
 import static com.bagas.constants.CommonConstants.SWAGGER_DOCS_ENDPOINTS;
 import static com.bagas.constants.CommonConstants.SWAGGER_UI_ENDPOINTS;
 import static com.bagas.constants.CommonConstants.WHOLE_CATEGORY_ENDPOINT;

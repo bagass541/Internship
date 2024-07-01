@@ -4,9 +4,12 @@ import com.bagas.dto.CategoryDTO;
 import com.bagas.dto.GroupDTO;
 import com.bagas.entities.Category;
 import com.bagas.entities.Group;
+import org.mapstruct.BeanMapping;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
+import org.mapstruct.MappingTarget;
 import org.mapstruct.Named;
+import org.mapstruct.NullValuePropertyMappingStrategy;
 import org.mapstruct.factory.Mappers;
 
 import java.util.List;
@@ -22,6 +25,10 @@ public interface GroupMapper {
     GroupDTO toDTO(Group group);
 
     Group toEntity(GroupDTO groupDTO);
+
+    @Mapping(target = "id", ignore = true)
+    @BeanMapping(nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
+    void updateGroupFromDTO(GroupDTO groupDTO, @MappingTarget Group group);
 
     @Named("categoriesToCategoriesDTO")
     default List<CategoryDTO> categoriesToCategoriesDTO(List<Category> categories) {

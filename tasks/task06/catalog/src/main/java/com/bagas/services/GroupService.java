@@ -5,7 +5,6 @@ import com.bagas.entities.Group;
 import com.bagas.exceptions.GroupNotFoundException;
 import com.bagas.mappers.GroupMapper;
 import com.bagas.repositories.GroupRepository;
-import com.bagas.updaters.GroupUpdater;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -35,9 +34,11 @@ public class GroupService {
         Group groupToUpdate = groupRepo.findById(id)
                 .orElseThrow(() -> new GroupNotFoundException(GROUP_NOT_FOUND_MESSAGE));
 
-        GroupUpdater.updateGroup(groupToUpdate, groupDTO);
+        GroupMapper.INSTANCE.updateGroupFromDTO(groupDTO, groupToUpdate);
 
-        return GroupMapper.INSTANCE.toDTO(groupRepo.save(groupToUpdate));
+        groupRepo.save(groupToUpdate);
+
+        return GroupMapper.INSTANCE.toDTO(groupToUpdate);
     }
 
     public void deleteById(Long id) {
