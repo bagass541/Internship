@@ -1,0 +1,57 @@
+version: '3.8'
+
+services:
+  security-service:
+    build:
+      context: .
+    container_name: security
+    depends_on:
+      - db
+      - redis
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://db-security:5438/security
+      - SPRING_DATASOURCE_USERNAME=bagas
+      - SPRING_DATASOURCE_PASSWORD=bagas
+      - SPRING_LIQUIBASE_CHANGE-LOG=/db/changelog/db.changelog-master.xml
+      - SPRING_DATA_REDIS_HOST=redis
+      - SPRING_DATA_REDIS_PORT=6379
+    ports:
+      - "8090:8090"
+
+  redis:
+    image: redis:latest
+    container_name: redis
+    ports:
+      - "6379:6379"
+    command: ["redis-server", "--appendonly", "yes"]
+    volumes:
+      - redis-data:/data
+
+  redis-commander:
+    image: rediscommander/redis-commander:latest
+    depends_on:
+      - redis
+    ports:
+      - "8081:8081"
+    environment:
+      - REDIS_HOSTS=local:redis:6379
+
+  db:
+    image: postgres:13.14-bullseye
+    container_name: db-security
+    environment:
+      POSTGRES_USER: bagas
+      POSTGRES_PASSWORD: bagas
+      POSTGRES_DB: 'security'
+    ports:
+      - "5438:5438"
+    volumes:
+      - db:/var/lib/postgresql/data
+    command: -p 5438
+    restart: unless-stopped
+
+volumes:
+  db:
+    external: false
+  redis-data:
+    external: false

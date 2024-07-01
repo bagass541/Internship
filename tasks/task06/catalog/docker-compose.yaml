@@ -1,0 +1,36 @@
+version: '3.8'
+
+services:
+  catalog-service:
+    build:
+      context: .
+    container_name: catalog
+    depends_on:
+      - db
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://db-catalog:5439/catalog
+      - SPRING_DATASOURCE_USERNAME=bagas
+      - SPRING_DATASOURCE_PASSWORD=bagas
+      - SPRING_LIQUIBASE_CHANGE-LOG=/db/changelog/db.changelog-master.xml
+    ports:
+      - "8091:8091"
+
+  db:
+    image: postgres:13.14-bullseye
+    container_name: db-catalog
+    environment:
+#      POSTGRES_USER: ${DB_USERNAME}
+#      POSTGRES_PASSWORD: ${DB_PASSWORD}
+      POSTGRES_USER: bagas
+      POSTGRES_PASSWORD: bagas
+      POSTGRES_DB: 'catalog'
+    ports:
+      - "5439:5439"
+    volumes:
+      - db:/var/lib/postgresql/data
+    command: -p 5439
+    restart: unless-stopped
+
+volumes:
+  db:
+    external: false
